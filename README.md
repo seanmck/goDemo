@@ -29,3 +29,14 @@ hostnames, we can use a user-defined Docker network.
   hostname by the go-web-app pod. go-web-app only has a random ID as its
   hostname, but we don't need to reach it from inside the bridge. It's
   reachable at localhost:12345 on the host.
+
+
+### How to get up and running on AKS
+- Create your AKS Cluster
+- https://docs.couchbase.com/operator/current/install-kubernetes.html
+- Must follow these instructions if you create a new cluster ^ You have to run those commands wherever you downloaded those files
+- Connect to your cluster
+- Deploy the couchbase.yaml and the deployment.yaml
+- Run `kubectl port-forward service/cb-example 2121:8091` to access the DB UI
+- Create your Primary key on `cars`
+- Have fun with postman :)
