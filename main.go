@@ -82,7 +82,8 @@ func DeleteCarEndpoint(w http.ResponseWriter, req *http.Request) {
 
 func GetCarPartsEndpoint(w http.ResponseWriter, req *http.Request) {
 	parts := []Part{
-		Part{Engine: "2021 Camry Engine",
+		{
+			Engine: "2021 Camry Engine",
 			Tires:  "2021 Camry Wheelset",
 			Lights: "2021 Light Package",
 		},
@@ -93,7 +94,7 @@ func GetCarPartsEndpoint(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	cluster, _ := gocb.Connect("localhost:8091")
+	cluster, _ := gocb.Connect("db:8091")
 	cluster.Authenticate(gocb.PasswordAuthenticator{
 		Username: "Administrator",
 		Password: "password",
