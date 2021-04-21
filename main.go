@@ -46,7 +46,11 @@ func GetCarEndpoint(w http.ResponseWriter, req *http.Request) {
 func GetCarsEndpoint(w http.ResponseWriter, req *http.Request) {
 	var car []Car
 	query := gocb.NewN1qlQuery("SELECT * FROM cars AS car")
-	rows, _ := bucket.ExecuteN1qlQuery(query, nil)
+	rows, err := bucket.ExecuteN1qlQuery(query, nil)
+	if err != nil {
+		fmt.Printf("failed to query couchbase: %s\n", err)
+		http.Error(w, err.Error(), 400)
+	}
 	var row N1qlCar
 	for rows.Next(&row) {
 		car = append(car, row.Car)
