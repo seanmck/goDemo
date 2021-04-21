@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: go-web-app
-        image: qpetraroia/go-web-app:latest
+        image: qpetraroia.azurecr.io/go-web-app
         imagePullPolicy: Always
         ports:
         - containerPort: 12345
