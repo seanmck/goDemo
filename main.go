@@ -93,7 +93,7 @@ func GetCarPartsEndpoint(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	cluster, _ := gocb.Connect("localhost:8091")
+	cluster, _ := gocb.Connect("0.0.0.0:8091")
 	cluster.Authenticate(gocb.PasswordAuthenticator{
 		Username: "Administrator",
 		Password: "password",
