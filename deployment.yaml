@@ -1,0 +1,55 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: godemo
+spec:
+  selector:
+    matchLabels:
+      app: godemo
+  replicas: 1 # tells deployment to run # pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: godemo
+    spec:
+      containers:
+      - name: go-web-app
+        image: qpetraroia/go-web-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 12345
+          name: server
+        env:
+        - name: Couchbase__Username
+          valueFrom:
+            secretKeyRef:
+              name: cb-hellomicroservices-auth
+              key: username
+        - name: Couchbase__Password
+          valueFrom:
+            secretKeyRef:
+              name: cb-hellomicroservices-auth
+              key: password
+        - name: DB_HOST
+          value: cb-example
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: godemo
+spec:
+  ports:
+  - port: 80
+    targetPort: 12345
+    protocol: TCP
+  selector:
+    app: godemo
+  type: LoadBalancer
+
