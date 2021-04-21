@@ -15,6 +15,17 @@
 
 ### How to get up and running with Docker
 
+To network two containers together, they must be know each other's IP
+address or be able to use a known hostname. To map container names to
+hostnames, we can use a user-defined Docker network.
+
 - Build the image `docker build -t go-web-app:latest .`
-- Running  `docker run -it -p 1234:1234 go-web-app` seems to create the container correctly
-- As of right now, it cannot talk to the couchbaseDB container
+- Create a new bridge network `docker network create --driver bridge
+  couchbase`
+- Stop and remove the previously started couchbase container. Restart
+  it, but add `--network couchbase` to the quick start command.
+- Run  `docker run -it -p 12345:12345 --network couchbase go-web-app`.
+- The Couchbase container has the name "db" which can be used as a
+  hostname by the go-web-app pod. go-web-app only has a random ID as its
+  hostname, but we don't need to reach it from inside the bridge. It's
+  reachable at localhost:12345 on the host.
