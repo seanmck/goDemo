@@ -35,6 +35,8 @@ hostnames, we can use a user-defined Docker network.
 - Create your AKS Cluster
 - https://docs.couchbase.com/operator/current/install-kubernetes.html
 - Must follow these instructions if you create a new cluster ^ You have to run those commands wherever you downloaded those files
+- `tar -xvzf couchbase-autonomous-operator-kubernetes_2.1.0-linux-x86_64.tar.gz` unzip and then cd into `cd couchbase-autonomous-operator-kubernetes_2.1.0-linux-x86_64`
+- You can then follow https://docs.couchbase.com/operator/current/install-kubernetes.html
 - Connect to your cluster
 - Deploy the couchbase.yaml and the deployment.yaml
 - Run `kubectl port-forward service/cb-example 2121:8091` to access the DB UI
