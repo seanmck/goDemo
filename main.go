@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/couchbase/gocb"
 	"github.com/google/uuid"
@@ -93,8 +95,13 @@ func GetCarPartsEndpoint(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	host := "localhost"
+	if hostEnv := os.Getenv("DB_HOST"); hostEnv != "" {
+		host = hostEnv
+	}
+
 	router := mux.NewRouter()
-	cluster, _ := gocb.Connect("db:8091")
+	cluster, _ := gocb.Connect(fmt.Sprintf("%s:8091", host))
 	cluster.Authenticate(gocb.PasswordAuthenticator{
 		Username: "Administrator",
 		Password: "password",
