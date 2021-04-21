@@ -50,6 +50,7 @@ func GetCarsEndpoint(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		fmt.Printf("failed to query couchbase: %s\n", err)
 		http.Error(w, err.Error(), 400)
+		return
 	}
 	var row N1qlCar
 	for rows.Next(&row) {
