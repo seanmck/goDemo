@@ -42,3 +42,6 @@ hostnames, we can use a user-defined Docker network.
 - Run `kubectl port-forward service/cb-example 2121:8091` to access the DB UI
 - Create your Primary key on `cars`
 - Have fun with postman :)
+
+### How to get up and running with GH Actions 
+- When you have a new cluster follow these steps https://docs.microsoft.com/en-us/azure/dev-spaces/how-to/github-actions put them into secretes and you are good to go
