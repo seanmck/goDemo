@@ -28,9 +28,6 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
           registry: ${{ secrets.CONTAINER_REGISTRY }}
           tags: latest
-      - run: |
-          docker build . -t ${{ secrets.CONTAINER_REGISTRY }}.io/go-web-app:latest
-          docker push ${{ secrets.CONTAINER_REGISTRY }}.io/go-web-app:latest
           
       # set cluster context
       - uses: azure/aks-set-context@v1
@@ -39,7 +36,6 @@ jobs:
           cluster-name: carData
           resource-group: goDemo-containers
     
-
       - uses: Azure/k8s-deploy@v1
         with:
           manifests: |
