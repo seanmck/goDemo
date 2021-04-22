@@ -32,7 +32,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: qpetraroia.azurecr.io/go-web-app:latest
+          tags: qpetraroia.azurecr.io/go-web-app:${{ github.sha }}
           
       # set cluster context
       - uses: azure/aks-set-context@v1
@@ -47,6 +47,6 @@ jobs:
             couchbase.yaml
             deployment.yaml
           images: |
-            ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io/go-web-app:latest
+            ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io/go-web-app:${{ github.sha }}
             
 
