@@ -20,14 +20,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Login to ACR
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+      
       - name: Build and Push
         uses: docker/build-push-action@v2
         with:
-          login-server: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-          registry: ${{ secrets.CONTAINER_REGISTRY }}
-          tags: latest
+          context: .
+          push: true
+          tags: go-web-app:latest
           
       # set cluster context
       - uses: azure/aks-set-context@v1
@@ -43,7 +48,5 @@ jobs:
             deployment.yaml
           images: |
             ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io/go-web-app:latest
-          
-
-
+            
 
